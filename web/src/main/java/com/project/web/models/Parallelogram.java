@@ -4,7 +4,7 @@ public class Parallelogram {
     private double height;
     private double length;
     private double perimeter;
-    private double aree;
+    private double area;
 
     public Parallelogram() { }
 
@@ -27,14 +27,14 @@ public class Parallelogram {
         return perimeter;
     }
 
-    public double getArea() { return aree; }
+    public double getArea() { return area; }
 
     public double CalculPerimeter() {
         return perimeter = 2 * (height + length);
     }
 
     public double CalculArea() {
-        return aree = height * length;
+        return area = height * length;
     }
 
 }

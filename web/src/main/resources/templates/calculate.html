@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Parallelogram</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form action = "/calculate" method = "get">
+  <p>
+    <label for = "inpLength">Длина: </label>
+    <input th:value = "${length}" id = "inpLength" name = "length" type = "text" size = "15"/>
+  </p>
+  <p>
+    <label for = "inpHeight">Высота: </label>
+    <input th:value = "${height}" id = "inpHeight" name = "height" type = "text" size = "15"/>
+  </p>
+  <p>
+    <button id = "btnArea" name = "areaClick" type = "submit" value = "true">Площадь</button>
+    <i th:text = "${area}" style = "margin: 0px 10px 0px 10px"></i>
+    <button id = "btnPerimeter" name = "perimeterClick" type = "submit" value = "true">Периметр</button>
+    <i th:text = "${perimeter}" style = "margin: 0px 10px 0px 10px"></i>
+  </p>
+</form>
+</body>
+</html>
