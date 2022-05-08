@@ -1,40 +1,37 @@
 package com.project.web.models;
 
 public class Parallelogram {
-    private double height;
-    private double length;
-    private double perimeter;
-    private double area;
+    private static double length;
+    private static double height;
+    private static double perimeter;
+    private static double area;
 
-    public Parallelogram() { }
-
-    public Parallelogram(double height, double length) {
-        this.height = height;
-        this.length = length;
+    Parallelogram() {
+        ResetCharacteristics();
     }
 
-    public double getHeight() {
-        return height;
+    public static double getHeight() {
+        return Parallelogram.height;
     }
-    public void setHeight(double height) { this.height = height; }
+    public static void setHeight(double height) { Parallelogram.height = height; }
 
-    public double getLength() {
-        return length;
+    public static double getLength() {
+        return Parallelogram.length;
     }
-    public void setLength(double length) { this.length = length; }
+    public static void setLength(double length) { Parallelogram.length = length; }
 
-    public double getPerimeter() {
-        return perimeter;
+    public static double getPerimeter() {
+        return Parallelogram.perimeter;
     }
+    public static void setPerimeter(double perimeter) { Parallelogram.perimeter = perimeter; }
 
-    public double getArea() { return area; }
+    public static double getArea() { return Parallelogram.area; }
+    public static void setArea(double area) { Parallelogram.area = area; }
 
-    public double CalculPerimeter() {
-        return perimeter = 2 * (height + length);
+    public static void ResetCharacteristics() {
+        Parallelogram.length = 0;
+        Parallelogram.height = 0;
+        Parallelogram.perimeter = 0;
+        Parallelogram.area = 0;
     }
-
-    public double CalculArea() {
-        return area = height * length;
-    }
-
 }
