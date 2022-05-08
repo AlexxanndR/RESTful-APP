@@ -7,7 +7,10 @@ public class Parallelogram {
     private static double area;
 
     Parallelogram() {
-        ResetCharacteristics();
+        Parallelogram.length = 0;
+        Parallelogram.height = 0;
+        Parallelogram.perimeter = 0;
+        Parallelogram.area = 0;
     }
 
     public static double getHeight() {
@@ -27,11 +30,4 @@ public class Parallelogram {
 
     public static double getArea() { return Parallelogram.area; }
     public static void setArea(double area) { Parallelogram.area = area; }
-
-    public static void ResetCharacteristics() {
-        Parallelogram.length = 0;
-        Parallelogram.height = 0;
-        Parallelogram.perimeter = 0;
-        Parallelogram.area = 0;
-    }
 }

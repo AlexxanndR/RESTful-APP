@@ -38,7 +38,6 @@ public class ParallelogramService {
         if (outputParams.getPerimeter() > 0 && outputParams.getArea() > 0) {
             MyLogger.log(Level.INFO, "Adding params to cache...");
             cacheService.add(inputParams, outputParams);
-            Parallelogram.ResetCharacteristics();
             return outputParams;
         }
 

@@ -4,6 +4,7 @@ import com.project.web.IO.InputParams;
 import com.project.web.enums.CharacteristicType;
 import com.project.web.models.Parallelogram;
 import com.project.web.services.ParallelogramService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ParallelogramController {
-    private final ParallelogramService parallelogramService = new ParallelogramService();
+    @Autowired
+    private ParallelogramService parallelogramService;
 
     @GetMapping("/calculate")
     public String calculate(
@@ -33,6 +35,7 @@ public class ParallelogramController {
         else if (btnArea == Boolean.TRUE)
            parallelogramService.calculate(in, CharacteristicType.area);
 
+        //Synchronization.semaphore.release();
 
         model.addAttribute("height", height);
         model.addAttribute("length", length);
