@@ -10,9 +10,7 @@ public class RequestCounter {
         counter = 0;
     }
 
-    public static void increment() {
-        counter++;
-    }
+    public static void increase() { counter++; }
 
     public static Integer getCounter() { return counter; }
 }

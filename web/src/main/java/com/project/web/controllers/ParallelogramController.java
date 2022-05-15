@@ -4,6 +4,7 @@ import com.project.web.IO.InputParams;
 import com.project.web.enums.CharacteristicType;
 import com.project.web.models.Parallelogram;
 import com.project.web.services.ParallelogramService;
+import com.project.web.services.RequestCounter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +20,12 @@ public class ParallelogramController {
     private ParallelogramService parallelogramService;
 
     @GetMapping("/calculate")
-    public String calculate(
-            @RequestParam(value = "height", required = false, defaultValue = "0.0") double height,
-            @RequestParam(value = "length", required = false, defaultValue = "0.0") double length,
-            @RequestParam(value = "areaClick", required = false, defaultValue = "false") Boolean btnArea,
-            @RequestParam(value = "perimeterClick", required = false, defaultValue = "false") Boolean btnPerimeter,
-            Model model) {
-        if (height < 0 && length < 0)
+    public String calculate(@RequestParam(value = "height", required = false, defaultValue = "0.0") double height,
+                            @RequestParam(value = "length", required = false, defaultValue = "0.0") double length,
+                            @RequestParam(value = "areaClick", required = false, defaultValue = "false") Boolean btnArea,
+                            @RequestParam(value = "perimeterClick", required = false, defaultValue = "false") Boolean btnPerimeter,
+                            Model model) {
+        if (height < 0 || length < 0)
             throw new IllegalArgumentException("Wrong params provided!");
 
         var in = new InputParams(height, length);
@@ -35,7 +35,11 @@ public class ParallelogramController {
         else if (btnArea == Boolean.TRUE)
            parallelogramService.calculate(in, CharacteristicType.area);
 
-        //Synchronization.semaphore.release();
+
+
+        RequestCounter.increase();
+
+
 
         model.addAttribute("height", height);
         model.addAttribute("length", length);
@@ -45,10 +49,10 @@ public class ParallelogramController {
         return "calculate";
     }
 
-    @GetMapping("/cache")
-    public ResponseEntity<Object> getCache() {
-       return new ResponseEntity<>(parallelogramService.getCache(), HttpStatus.OK);
-    }
+//    @GetMapping("/cache")
+//    public ResponseEntity<Object> getCache() {
+//       return new ResponseEntity<>(parallelogramService.getCache(), HttpStatus.OK);
+//    }
 
 //    @GetMapping("/calculate/{action}")
 //    public ResponseEntity<Map<String, Object>> calculatorJSON(
