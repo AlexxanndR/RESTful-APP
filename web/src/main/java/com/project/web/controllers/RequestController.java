@@ -15,6 +15,6 @@ public class RequestController {
     @GetMapping(value = "/counter")
     public ResponseEntity<String> getCounter() {
         MyLogger.log(Level.INFO, "Getting request counter...");
-        return new ResponseEntity<>(RequestCounter.getCounter() + " requests were made.", HttpStatus.OK);
+        return new ResponseEntity<>("Requests number: " + RequestCounter.getCounter(), HttpStatus.OK);
     }
 }

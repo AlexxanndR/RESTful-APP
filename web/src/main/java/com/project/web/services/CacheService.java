@@ -32,6 +32,6 @@ public class CacheService {
 
     @Override
     public String toString() {
-        return super.toString();
+        return cache.toString();
     }
 }
