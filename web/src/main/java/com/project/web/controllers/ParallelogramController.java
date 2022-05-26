@@ -4,7 +4,7 @@ import com.project.web.IO.InputParams;
 import com.project.web.IO.OutputParams;
 import com.project.web.enums.CharacteristicType;
 import com.project.web.logger.MyLogger;
-import com.project.web.models.ParallelogramView;
+import com.project.web.models.Parallelogram;
 import com.project.web.services.ParallelogramService;
 import com.project.web.services.RequestCounter;
 import org.apache.logging.log4j.Level;
@@ -49,8 +49,8 @@ public class ParallelogramController {
 
         model.addAttribute("height", height);
         model.addAttribute("length", length);
-        model.addAttribute("perimeter", ParallelogramView.getPerimeter());
-        model.addAttribute("area", ParallelogramView.getArea());
+        model.addAttribute("perimeter", Parallelogram.getPerimeter());
+        model.addAttribute("area", Parallelogram.getArea());
 
         return "calculate";
     }

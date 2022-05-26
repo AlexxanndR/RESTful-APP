@@ -3,7 +3,7 @@ package com.project.web.services;
 import com.project.web.IO.InputParams;
 import com.project.web.IO.OutputParams;
 import com.project.web.enums.CharacteristicType;
-import com.project.web.models.ParallelogramView;
+import com.project.web.models.Parallelogram;
 import com.project.web.logger.MyLogger;
 import org.apache.logging.log4j.Level;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +31,12 @@ public class ParallelogramService {
         if (chrType == CharacteristicType.perimeter || chrType == CharacteristicType.perimeter_area) {
             MyLogger.log(Level.INFO, "Calculating perimeter...");
             perimeter = calculatePerimeter(inputParams);
-            ParallelogramView.setPerimeter(perimeter);
+            Parallelogram.setPerimeter(perimeter);
         }
         if (chrType == CharacteristicType.area || chrType == CharacteristicType.perimeter_area) {
             MyLogger.log(Level.INFO, "Calculating area...");
             area = calculateArea(inputParams);
-            ParallelogramView.setArea(area);
+            Parallelogram.setArea(area);
         }
 
         if (perimeter > 0 && area > 0) {
