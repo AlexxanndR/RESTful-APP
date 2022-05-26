@@ -4,5 +4,6 @@ public enum CharacteristicType {
     height,
     length,
     perimeter,
-    area
+    area,
+    perimeter_area
 }

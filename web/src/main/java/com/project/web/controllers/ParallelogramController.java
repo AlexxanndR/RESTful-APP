@@ -3,7 +3,6 @@ package com.project.web.controllers;
 import com.project.web.IO.InputParams;
 import com.project.web.IO.OutputParams;
 import com.project.web.enums.CharacteristicType;
-import com.project.web.enums.ParamsType;
 import com.project.web.logger.MyLogger;
 import com.project.web.models.ParallelogramView;
 import com.project.web.services.ParallelogramService;
@@ -20,8 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Collections;
-import java.util.HashMap;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -62,39 +60,38 @@ public class ParallelogramController {
         List<OutputParams> outputList = new LinkedList<>();
 
         inputList.forEach((inputParams) -> {
-            OutputParams outputParams = new OutputParams();
             try {
-                outputParams = parallelogramService.calculate(inputParams, CharacteristicType.area);
-                outputParams = parallelogramService.calculate(inputParams, CharacteristicType.perimeter);
-                outputList.add(outputParams);
-                MyLogger.log(Level.INFO, "Value " + inputParams + "@" + outputParams + " added to output list!");
+                outputList.add(parallelogramService.calculate(inputParams, CharacteristicType.perimeter_area));
+                MyLogger.log(Level.INFO, "Output list - " + outputList);
             } catch (IllegalArgumentException e) {
                 MyLogger.log(Level.ERROR, "POST error!");
             }
         });
         MyLogger.log(Level.ERROR, "POST success!");
 
-        double heightAverage = parallelogramService.calculateAverage(inputList, ParamsType.input, CharacteristicType.height);
-        double lengthAverage = parallelogramService.calculateAverage(inputList, ParamsType.input, CharacteristicType.length);
-        double perimeterAverage = parallelogramService.calculateAverage(outputList, ParamsType.output, CharacteristicType.perimeter);
-        double areaAverage = parallelogramService.calculateAverage(outputList, ParamsType.output, CharacteristicType.area);
+        DecimalFormat dec = new DecimalFormat("#0.00");
 
-        double heightMin = parallelogramService.findMin(inputList, ParamsType.input, CharacteristicType.height);
-        double lengthMin = parallelogramService.findMin(inputList, ParamsType.input, CharacteristicType.length);
-        double perimeterMin = parallelogramService.findMin(outputList, ParamsType.output, CharacteristicType.perimeter);
-        double areaMin = parallelogramService.findMin(outputList, ParamsType.output, CharacteristicType.area);
+        double heightAverage = parallelogramService.calculateAverage(inputList, CharacteristicType.height);
+        double lengthAverage = parallelogramService.calculateAverage(inputList,  CharacteristicType.length);
+        double perimeterAverage = parallelogramService.calculateAverage(outputList,  CharacteristicType.perimeter);
+        double areaAverage = parallelogramService.calculateAverage(outputList,  CharacteristicType.area);
 
-        double heightMax = parallelogramService.findMax(inputList, ParamsType.input, CharacteristicType.height);
-        double lengthMax = parallelogramService.findMax(inputList, ParamsType.input, CharacteristicType.length);
-        double perimeterMax = parallelogramService.findMax(outputList, ParamsType.output, CharacteristicType.perimeter);
-        double areaMax = parallelogramService.findMax(outputList, ParamsType.output, CharacteristicType.area);
+        double heightMin = parallelogramService.findMin(inputList, CharacteristicType.height);
+        double lengthMin = parallelogramService.findMin(inputList, CharacteristicType.length);
+        double perimeterMin = parallelogramService.findMin(outputList, CharacteristicType.perimeter);
+        double areaMin = parallelogramService.findMin(outputList, CharacteristicType.area);
 
-        return new ResponseEntity<>("Height average - " + heightAverage  + "; length average - " + lengthAverage
-                                    + "; area average - " + areaAverage + "; perimeter average - " + perimeterAverage + ".\n"
-                                    + "Height min - " + heightMin  + "; length min - " + lengthMin
-                                    + "; area min - " + areaMin + "; perimeter min - " + perimeterMin + ".\n"
-                                    + "Height max - " + heightMax  + "; length max - " + lengthMax
-                                    + "; area max - " + areaMax + "; perimeter max - " + perimeterMax + ".\n", HttpStatus.OK);
+        double heightMax = parallelogramService.findMax(inputList, CharacteristicType.height);
+        double lengthMax = parallelogramService.findMax(inputList, CharacteristicType.length);
+        double perimeterMax = parallelogramService.findMax(outputList, CharacteristicType.perimeter);
+        double areaMax = parallelogramService.findMax(outputList, CharacteristicType.area);
+
+        return new ResponseEntity<>("Height average - " + dec.format(heightAverage)  + "; length average - " + dec.format(lengthAverage)
+                                    + "; area average - " + dec.format(areaAverage) + "; perimeter average - " + dec.format(perimeterAverage) + ".\n"
+                                    + "Height min - " + dec.format(heightMin)  + "; length min - " + dec.format(lengthMin)
+                                    + "; area min - " + dec.format(areaMin) + "; perimeter min - " + dec.format(perimeterMin) + ".\n"
+                                    + "Height max - " + dec.format(heightMax)  + "; length max - " + dec.format(lengthMax)
+                                    + "; area max - " + dec.format(areaMax) + "; perimeter max - " + dec.format(perimeterMax) + ".\n", HttpStatus.OK);
     }
 
     @GetMapping("/cache")
